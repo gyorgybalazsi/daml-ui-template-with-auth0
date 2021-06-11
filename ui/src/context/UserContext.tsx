@@ -1,6 +1,7 @@
 import React from "react";
 import { History } from 'history';
-import { createToken, dablLoginUrl, damlPartyKey, damlTokenKey } from "../config";
+//import { createToken, dablLoginUrl, damlPartyKey, damlTokenKey } from "../config";
+import { dablLoginUrl, damlPartyKey, damlTokenKey } from "../config";
 
 type AuthenticatedUser = {
   isAuthenticated : true
@@ -86,11 +87,13 @@ function loginUser(
     history : History,
     setIsLoading : React.Dispatch<React.SetStateAction<boolean>>,
     setError : React.Dispatch<React.SetStateAction<boolean>>) {
+  console.log("Fuction loginuser called")
   setError(false);
   setIsLoading(true);
 
   if (!!party) {
-    const token = userToken || createToken(party)
+    const token = userToken 
+    //const token = userToken || createToken(party)
     localStorage.setItem(damlPartyKey, party);
     localStorage.setItem(damlTokenKey, token);
 
@@ -112,7 +115,6 @@ const loginDablUser = () => {
 function signOut(dispatch : React.Dispatch<LoginAction>, history : History) {
   localStorage.removeItem("daml.party");
   localStorage.removeItem("daml.token");
-
   dispatch({ type: "SIGN_OUT_SUCCESS" });
   history.push("/login");
 }
