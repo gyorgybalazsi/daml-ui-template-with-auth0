@@ -13,46 +13,58 @@ import logo from "./logo.svg";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import * as jwt from 'jsonwebtoken' 
+import { damlPartyKey, damlTokenKey } from "../../config";
 
 const Login = (props : RouteComponentProps) => {
   var classes = useStyles();
   var userDispatch = useUserDispatch();
   var [isLoading, setIsLoading] = useState(false);
-  var [error_1, setError] = useState(false);
+  var [error, setError] = useState(false);
 /*   var [loginValue, setLoginValue] = useState("");
   var [passwordValue, setPasswordValue] = useState(""); */
 
   const {
     loginWithRedirect,
-    getAccessTokenSilently,
-    error
+    getAccessTokenSilently
   } = useAuth0();
 
+  // This function substitues the loginUser function,
+  // see in UserContext.tsx
   const handleLoginClick = async () => {
+    // This part substitutes the party and access token 
+    // parameter input by acquiring the access token from Auth0
+    // and extracting the party id from the access key.
     loginWithRedirect();
-    if (!error){
-      const token = await getAccessTokenSilently();
-      console.log("token:" + token);
-      const decoded = jwt.decode(token)
-      console.log("type of decoded: " + typeof decoded);
-      console.log("decoded: " + JSON.stringify(decoded))
-      if (typeof decoded !== "object" || !decoded){
-        throw new Error("Decoded token is not object")
-      }
-      const party = decoded["https://daml.com/ledger-api"].actAs[0];
-      console.log(party);
-      /* setLoginValue(party);
-      setPasswordValue(token); */
-      loginUser(
-        userDispatch,
-        party,
-        token,
-        props.history,
-        setIsLoading,
-        setError,
-      )
+    const token = await getAccessTokenSilently();
+    console.log("token:" + token);
+    const decoded = jwt.decode(token)
+    if (typeof decoded !== "object" || !decoded){
+      throw new Error("Decoded token is not object")
+    }
+    const party = decoded["https://daml.com/ledger-api"].actAs[0];
+
+    // This part is bascally the same as the body
+    // of the loginUser function.
+
+    setError(false);
+    setIsLoading(true);
+
+    if (!!party) {
+      // This line is deleted, it originally served 
+      // the purpose of creating an access token locally
+      // when no access token was inputted on the UI
+      //const token = userToken || createToken(party)
+      localStorage.setItem(damlPartyKey, party);
+      localStorage.setItem(damlTokenKey, token);
+
+      userDispatch({ type: "LOGIN_SUCCESS", token, party });
+      setError(false);
+      setIsLoading(false);
+      props.history.push("/app");
     } else {
-      throw new Error("Auth0 login error")
+      userDispatch({ type: "LOGIN_FAILURE" });
+      setError(true);
+      setIsLoading(false);
     }
   }
 
@@ -65,7 +77,7 @@ const Login = (props : RouteComponentProps) => {
       <div className={classes.formContainer}>
         <div className={classes.form}>
             <React.Fragment>
-              <Fade in={error_1}>
+              <Fade in={error}>
                 <Typography color="secondary" className={classes.errorMessage}>
                   Something is wrong with your login or password :(
                 </Typography>

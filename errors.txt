@@ -1,0 +1,29 @@
+Errors
+
+#1 Reloading the login pages has the same effect as pressing the Login button
+
+#2 Error messages during login
+
+During login we get 2 error messages:
+
+Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+    in Login (created by Context.Consumer)
+    in withRouter(Login) (created by Context.Consumer)
+    in Route (at App.tsx:78)
+    in PublicRoute (at App.tsx:22)
+
+index.js:1 useStreamQuery: WebSocket connection failed. 
+    at PrivateRoute (http://localhost:3000/static/js/main.chunk.js:137:5)
+    at Switch (http://localhost:3000/static/js/1.chunk.js:145588:29)
+    at Router (http://localhost:3000/static/js/1.chunk.js:145021:30)
+    at HashRouter (http://localhost:3000/static/js/1.chunk.js:144686:35)
+    at App (http://localhost:3000/static/js/main.chunk.js:30:94)
+    at ThemeProvider (http://localhost:3000/static/js/1.chunk.js:45564:24)
+    at UserProvider (http://localhost:3000/static/js/main.chunk.js:772:3)
+    at Auth0Provider (http://localhost:3000/static/js/1.chunk.js:4165:23)
+
+#3 Token validation is not activated
+
+#4 Improper URLs after login
+
+After login the URL is http://localhost:3000/#/app/report, but during token exchange it changes to http://localhost:3000. After refreshing the page it changes to http://localhost:3000/#/app/report

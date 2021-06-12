@@ -10,7 +10,7 @@ start-navigator: false
 sandbox-options:
   - --ledgerid=daml-ui-template
   - -w
-  - --auth-jwt-rs256-jwks=https://dev-nqn0wejk.eu.auth0.com/.well-known/jwks.json
+  #- --auth-jwt-rs256-jwks=https://dev-nqn0wejk.eu.auth0.com/.well-known/jwks.json
 dependencies:
   - daml-prim
   - daml-stdlib
