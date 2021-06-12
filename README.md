@@ -1,5 +1,20 @@
 # DAML App Template
 
+BGY: This is the original README of the Daml UI template. TODO update to the Auth0 version. 
+
+Changes are in the following files:
+
+[package.json](https://github.com/gyorgybalazsi/daml-ui-template-with-auth0/blob/main/ui/package.json) - dependency "@auth0/auth0-react": "^1.5.0" added
+
+[index.tsx](https://github.com/gyorgybalazsi/daml-ui-template-with-auth0/blob/main/ui/src/index.tsx) - Auth0Provider added as outmost wrapper
+
+[Login.tsx](https://github.com/gyorgybalazsi/daml-ui-template-with-auth0/blob/main/ui/src/pages/login/Login.tsx) 
+
+  - a new `handleLoginClick` function added instead of the exeisting `loginUser` function
+  - text fields for inputting party id and access token deleted
+
+Known errors in the [errors.tx](https://github.com/gyorgybalazsi/daml-ui-template-with-auth0/blob/main/errors.txt) file.
+
 ## Overview
 
 This repository contains a simple UI template for a DAML application. It provides ledger connectivity and shows how to create simple reports from contracts. The template is based on [create-react-app](https://github.com/facebook/create-react-app) and the [Material UI](https://material-ui.com/) framework.

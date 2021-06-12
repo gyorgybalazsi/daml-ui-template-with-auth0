@@ -26,4 +26,8 @@ index.js:1 useStreamQuery: WebSocket connection failed.
 
 #4 Improper URLs after login
 
-After login the URL is http://localhost:3000/#/app/report, but during token exchange it changes to http://localhost:3000. After refreshing the page it changes to http://localhost:3000/#/app/report
+After login the URL is http://localhost:3000/#/app/report, 
+
+but during token exchange it changes to http://localhost:3000. 
+
+After refreshing the page it changes to http://localhost:3000/#/app/report
