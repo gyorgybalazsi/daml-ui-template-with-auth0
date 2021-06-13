@@ -1,6 +1,32 @@
 Errors
 
-#1 Reloading the login pages has the same effect as pressing the Login button
+#1 Routing is messed up
+
+We have the routing errors detailed under point 1.1 and 1.2. 
+
+The reason for these errors might be that 
+
+- on one hand Auth0 uses the authorization grant flow which puts the code and the access token into the hash fragment of the URL
+
+- on the other hand the routing of the UI template is based on HashRouter, which also uses the URL hash fragment, and 
+
+- as a consequence, the two mechanisms are incompatible with each other.
+
+A possible solution could be to rewrite the UI template from using hashed URLs to non-hashed URLs.
+
+This might need some server-side coding.
+
+The routing errors in detail:
+
+1.1 Reloading the login pages has the same effect as pressing the Login button.
+
+1.2 Improper URLs after login:
+
+- After login the URL is http://localhost:3000/#/app/report, 
+
+- but during token exchange it changes to http://localhost:3000. 
+
+- After refreshing the page it changes to http://localhost:3000/#/app/report
 
 #2 Error messages during login
 
@@ -22,12 +48,3 @@ index.js:1 useStreamQuery: WebSocket connection failed.
     at UserProvider (http://localhost:3000/static/js/main.chunk.js:772:3)
     at Auth0Provider (http://localhost:3000/static/js/1.chunk.js:4165:23)
 
-#3 Token validation is not activated
-
-#4 Improper URLs after login
-
-After login the URL is http://localhost:3000/#/app/report, 
-
-but during token exchange it changes to http://localhost:3000. 
-
-After refreshing the page it changes to http://localhost:3000/#/app/report

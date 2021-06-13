@@ -15,6 +15,8 @@ Changes are in the following files:
 
 Known errors in the [errors.tx](https://github.com/gyorgybalazsi/daml-ui-template-with-auth0/blob/main/errors.txt) file.
 
+Token validation (JWKS) is not yet activated
+
 ## Overview
 
 This repository contains a simple UI template for a DAML application. It provides ledger connectivity and shows how to create simple reports from contracts. The template is based on [create-react-app](https://github.com/facebook/create-react-app) and the [Material UI](https://material-ui.com/) framework.
